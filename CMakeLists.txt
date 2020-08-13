@@ -5,6 +5,11 @@ set(4dface_VERSION_MINOR 3)
 set(4dface_VERSION_PATCH 0)
 set(4dface_VERSION ${4dface_VERSION_MAJOR}.${4dface_VERSION_MINOR}.${4dface_VERSION_PATCH})
 
+if(APPLE)
+    # for MacOS X or iOS, watchOS, tvOS (since 3.10.3)
+    set(CMAKE_CXX_STANDARD 14)
+endif()
+
 # Check if a supported compiler is used and add c++14 flag:
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 	if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 4.9)
@@ -43,7 +48,7 @@ set(CPACK_PACKAGE_VERSION_PATCH "${4dface_VERSION_PATCH}")
 include(CPack)
 
 # Find dependencies:
-find_package(OpenCV 3 REQUIRED core imgcodecs imgproc highgui videoio objdetect)
+find_package(OpenCV 4 REQUIRED core imgcodecs imgproc highgui videoio objdetect)
 message(STATUS "OpenCV include dir found at ${OpenCV_INCLUDE_DIRS}")
 message(STATUS "OpenCV library dir found at ${OpenCV_LIB_DIR}")
 set_target_properties(${OpenCV_LIBS} PROPERTIES MAP_IMPORTED_CONFIG_RELWITHDEBINFO RELEASE)
